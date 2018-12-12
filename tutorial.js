@@ -48,11 +48,13 @@ var Tutorial = (d => {
   const _setPositionTooltip = el => {
     const pos = _getPositionTooltip(el);
     const tooltip = d.getElementsByClassName("is-step-tooltip");
-    tooltip[0].style.top = `0`;
-    tooltip[0].style.left = `0`;
+    console.log(el.offsetLeft);
+    console.log(el.offsetTop);
+    tooltip[0].style.bottom = `${el.offsetLeft}px`;
+    tooltip[0].style.left = `${el.offsetTop}px`;
   };
 
-  const _setMessageTooltip = message => {
+  const _setMessageTooltip = (message) => {
     d.getElementById("is-step-message").innerHTML = message;
   };
 
