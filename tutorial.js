@@ -236,23 +236,48 @@ var Tutorial = (d => {
     }
   }
 
+  const checkTutorial = () => {
+    return _getCookie('tutorial')
+  }
+
+  const omitTutorial = () => {
+    changeStateTutorial(false)
+  }
+
 
   return {
     initTutorial,
     createTutorial,
     updatePosition,
-    changeStateTutorial
+    changeStateTutorial,
+    checkTutorial,
+    omitTutorial
   };
 })(document);
 
 Tutorial.createTutorial();
 
-window.onresize = () => {
-  Tutorial.updatePosition();
-};
+
+window.onload = () => {
+  document.getElementById('is-step-presentation').classList.add('show')
+}
+
+
+if(document.body.classList.contains('run-steps')) {
+  window.onresize = () => {
+    Tutorial.updatePosition();
+  };
+}
 
 document.getElementById("init").addEventListener("click", () => {
-  Tutorial.initTutorial();
+  document.getElementById('is-step-presentation').classList.remove('show')
+  if(!Tutorial.checkTutorial()) {
+    Tutorial.initTutorial();
+  }
 });
 
+
+document.getElementById("omit").addEventListener("click", () => {
+  Tutorial.omitTutorial();
+})
 

@@ -90,7 +90,13 @@ body {
     align-content: center;
     align-items: center;
     background: rgba(0, 0, 0, .77);
+    display: none;
 }
+
+.is-step-presentation.show {
+    display: flex;
+}
+
 
 .is-step-presentation .presentation {
     position: relative;
