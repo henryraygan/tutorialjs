@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+:root {
+    --step: '1';
+}
 
 .is-step-active {
     animation: fadein .2s;
@@ -25,7 +28,7 @@
     display: none;
     background-color: #1a73e8;
     color: #FFF;
-    position: relative;
+    position: absolute;
     padding: .5rem;
     border-radius: 2px;
     min-width: 200px;
@@ -37,6 +40,14 @@
 
 #is-step-message {
     padding: 1rem 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#is-step-message .title {
+    font-weight: bold;
+    margin: .5rem 0;
 }
 
 .is-step-tooltip::before {
@@ -49,6 +60,22 @@
     border-left: solid 5px transparent;
     border-right: solid 5px transparent;
     border-bottom: solid 4px #1a73e8;
+}
+
+.is-step-tooltip::after {
+    content: var(--step);
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background: #00C941;
+    border: 1px solid #00C941;
+    top: -15px;
+    left: -15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
 
 .is-step-mask {

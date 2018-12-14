@@ -16,17 +16,22 @@ var Tutorial = (d => {
         width: obj.width,
         height: obj.height
       };
+    console.log(obj)
     return layer;
   };
 
   const _getPositionTooltip = el => {
     const _el = el.getBoundingClientRect(),
       _position = {
-        x: _el.x,
-        y: _el.y
+        x: _el.left,
+        y: _el.top + _el.height
       };
     return _position;
   };
+
+  _setCurrentStep = (currentStep) => {
+    document.documentElement.style.setProperty("--step", `'${currentStep}'`);
+  }
 
   const _setPositionLayer = el => {
     const pos = _getActiveElement(el);
@@ -50,13 +55,19 @@ var Tutorial = (d => {
     const tooltip = d.getElementsByClassName("is-step-tooltip");
     console.log(el.offsetLeft);
     console.log(el.offsetTop);
-    tooltip[0].style.bottom = `${el.offsetLeft}px`;
-    tooltip[0].style.left = `${el.offsetTop}px`;
+    console.log(pos.x, pos.y)
+    console.log(pos.left, pos.right)
+    tooltip[0].style.top = `${pos.y}px`
+    tooltip[0].style.left = `${pos.x}px`
   };
 
-  const _setMessageTooltip = (message) => {
-    d.getElementById("is-step-message").innerHTML = message;
-  };
+  const _setMessageTooltip = (currentStep) => {
+    const message = _getMessageElement(currentStep),
+          title = _getTitleElement(currentStep)
+
+    document.querySelectorAll('#is-step-message .title')[0].innerHTML = title
+    document.querySelectorAll('#is-step-message .message')[0].innerHTML = message
+  }
 
   const _getStepLength = () => {
     const query = d.querySelectorAll(".is-step");
@@ -77,6 +88,9 @@ var Tutorial = (d => {
   _getMessageElement = currentStep =>
     d.getElementById(`step-${currentStep}`).getAttribute("data-message");
 
+  _getTitleElement = currentStep =>
+    d.getElementById(`step-${currentStep}`).getAttribute("data-title");
+
   _addClass = currentStep => {
     document
       .getElementById(`step-${currentStep}`)
@@ -93,10 +107,11 @@ var Tutorial = (d => {
 
   _createTooltip = currentStep => {
     const el = _getElementStep(currentStep);
-    _setMessageTooltip(_getMessageElement(currentStep));
+    _setMessageTooltip(currentStep);
     _setPositionTooltip(el);
     _setPositionLayer(el);
     _addClass(currentStep);
+    _setCurrentStep(currentStep)
   };
 
   let currentStep = 0;
@@ -157,13 +172,23 @@ var Tutorial = (d => {
 
     btnPrev.appendChild(tPrev);
     btnNext.appendChild(tNext);
-
     btnNext.addEventListener("click", () => {
       _nextStep();
     });
     btnPrev.addEventListener("click", () => {
       _prevStep();
     });
+
+    const messageHTML = document.createElement("SPAN"),
+          titleHTML = document.createElement("SPAN")
+
+    
+    titleHTML.setAttribute('class', 'title');
+    messageHTML.setAttribute('class', 'message');
+    
+    message.appendChild(titleHTML)
+    message.appendChild(messageHTML)
+
 
     controls.appendChild(btnPrev);
     controls.appendChild(btnNext);
