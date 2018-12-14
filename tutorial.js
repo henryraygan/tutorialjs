@@ -3,6 +3,30 @@ var Tutorial = (d => {
     d.body.classList.add("run-steps");
   };
 
+
+  const _setCookie = (name, value, days) => {
+    var d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+  }
+
+  const _getCookie = name => {
+    var name = name + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   const _stop = () => {
     d.body.classList.remove("run-steps");
     _resetLayer();
@@ -16,7 +40,7 @@ var Tutorial = (d => {
         width: obj.width,
         height: obj.height
       };
-    console.log(obj)
+    console.log(obj);
     return layer;
   };
 
@@ -24,14 +48,14 @@ var Tutorial = (d => {
     const _el = el.getBoundingClientRect(),
       _position = {
         x: _el.left,
-        y: _el.top + _el.height
+        y: _el.top + _el.height + 10
       };
     return _position;
   };
 
-  _setCurrentStep = (currentStep) => {
+  _setCurrentStep = currentStep => {
     document.documentElement.style.setProperty("--step", `'${currentStep}'`);
-  }
+  };
 
   const _setPositionLayer = el => {
     const pos = _getActiveElement(el);
@@ -55,19 +79,19 @@ var Tutorial = (d => {
     const tooltip = d.getElementsByClassName("is-step-tooltip");
     console.log(el.offsetLeft);
     console.log(el.offsetTop);
-    console.log(pos.x, pos.y)
-    console.log(pos.left, pos.right)
-    tooltip[0].style.top = `${pos.y}px`
-    tooltip[0].style.left = `${pos.x}px`
+    console.log(pos.x, pos.y);
+    console.log(pos.left, pos.right);
+    tooltip[0].style.top = `${pos.y}px`;
+    tooltip[0].style.left = `${pos.x}px`;
   };
 
-  const _setMessageTooltip = (currentStep) => {
+  const _setMessageTooltip = currentStep => {
     const message = _getMessageElement(currentStep),
-          title = _getTitleElement(currentStep)
+      title = _getTitleElement(currentStep);
 
-    document.querySelectorAll('#is-step-message .title')[0].innerHTML = title
-    document.querySelectorAll('#is-step-message .message')[0].innerHTML = message
-  }
+    document.querySelectorAll("#is-step-message .title")[0].innerHTML = title;
+    document.querySelectorAll("#is-step-message .message")[0].innerHTML = message;
+  };
 
   const _getStepLength = () => {
     const query = d.querySelectorAll(".is-step");
@@ -111,7 +135,7 @@ var Tutorial = (d => {
     _setPositionTooltip(el);
     _setPositionLayer(el);
     _addClass(currentStep);
-    _setCurrentStep(currentStep)
+    _setCurrentStep(currentStep);
   };
 
   let currentStep = 0;
@@ -125,7 +149,7 @@ var Tutorial = (d => {
       console.log(currentStep, stepLength, "hola");
       _stop();
     } else {
-      _showPrevButton(true)
+      _showPrevButton(true);
       _createTooltip(currentStep);
     }
   };
@@ -140,12 +164,11 @@ var Tutorial = (d => {
     }
   };
 
-
   updatePosition = () => {
     const el = _getElementStep(currentStep);
-    _setPositionTooltip(el)
-    _setPositionLayer(el)
-  }
+    _setPositionTooltip(el);
+    _setPositionLayer(el);
+  };
 
   const createTutorial = () => {
     console.log("tutorial is init");
@@ -180,15 +203,13 @@ var Tutorial = (d => {
     });
 
     const messageHTML = document.createElement("SPAN"),
-          titleHTML = document.createElement("SPAN")
+      titleHTML = document.createElement("SPAN");
 
-    
-    titleHTML.setAttribute('class', 'title');
-    messageHTML.setAttribute('class', 'message');
-    
-    message.appendChild(titleHTML)
-    message.appendChild(messageHTML)
+    titleHTML.setAttribute("class", "title");
+    messageHTML.setAttribute("class", "message");
 
+    message.appendChild(titleHTML);
+    message.appendChild(messageHTML);
 
     controls.appendChild(btnPrev);
     controls.appendChild(btnNext);
@@ -204,23 +225,34 @@ var Tutorial = (d => {
     stepLength = _getStepLength();
     _start();
     _createTooltip(currentStep);
-    _showPrevButton(false)
+    _showPrevButton(false);
   };
+
+  const changeStateTutorial = (state) => {
+    if(state) {
+      _setCookie('tutorial', true, 10);
+    } else {
+      _setCookie('tutorial', false, 10);
+    }
+  }
+
 
   return {
     initTutorial,
     createTutorial,
-    updatePosition
+    updatePosition,
+    changeStateTutorial
   };
 })(document);
 
-Tutorial.createTutorial()
+Tutorial.createTutorial();
 
 window.onresize = () => {
-  Tutorial.updatePosition()
-}
+  Tutorial.updatePosition();
+};
 
 document.getElementById("init").addEventListener("click", () => {
   Tutorial.initTutorial();
 });
+
 

@@ -56,9 +56,6 @@ body {
     animation: calltoaction .1s cubic-bezier(0.55, 0.055, 0.55, 0.55) infinite;
 }
 
-
-
-
 @keyframes calltoaction {
 	0%,33% {
 		box-shadow: 0 0 25px 3px rgba(#045de9,.3);
@@ -80,3 +77,57 @@ body {
 	}
 	
 }
+
+
+
+.is-step-presentation {
+    position: absolute;
+    z-index: 2000;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, .77);
+}
+
+.is-step-presentation .presentation {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    width: 40%;
+    background-color: #1a73e8;
+    border-radius: 4px;
+    color: #FFF;
+    padding: 2rem;
+    line-height: 1.6;
+}
+
+
+.is-step-presentation .presentation .content {
+    padding: 1em;
+}
+
+.is-step-presentation .presentation .footer {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.is-step-presentation .presentation .footer button {
+    background-color: transparent;
+    border: 0;
+    color: #FFF;
+    text-decoration: underline;
+    margin-top: 2rem;
+}
+
+.is-step-presentation .presentation .footer button:focus {
+    outline: 0;
+}
+

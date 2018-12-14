@@ -6,6 +6,10 @@
 
 :root {
     --step: '1';
+    --tutorial-badge: #00C941;
+    --tooltip-background: #1a73e8;
+    --tutorial-color: #FFF;
+
 }
 
 .is-step-active {
@@ -26,8 +30,8 @@
 
 .is-step-tooltip {
     display: none;
-    background-color: #1a73e8;
-    color: #FFF;
+    background-color: var(--tooltip-background);
+    color: var(--tutorial-color);
     position: absolute;
     padding: .5rem;
     border-radius: 2px;
@@ -59,7 +63,7 @@
     margin-left: -5px;
     border-left: solid 5px transparent;
     border-right: solid 5px transparent;
-    border-bottom: solid 4px #1a73e8;
+    border-bottom: solid 4px var(--tooltip-background);
 }
 
 .is-step-tooltip::after {
@@ -68,8 +72,8 @@
     width: 30px;
     height: 30px;
     border-radius: 100%;
-    background: #00C941;
-    border: 1px solid #00C941;
+    background: var(--tutorial-badge);
+    border: 1px solid var(--tutorial-badge);
     top: -15px;
     left: -15px;
     display: flex;
