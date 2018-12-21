@@ -1,8 +1,7 @@
-var Tutorial = (d => {
+export const Tutorial = (d => {
   const _start = () => {
     d.body.classList.add("run-steps");
   };
-
 
   const _setCookie = (name, value, days) => {
     var d = new Date();
@@ -255,29 +254,4 @@ var Tutorial = (d => {
   };
 })(document);
 
-Tutorial.createTutorial();
-
-
-window.onload = () => {
-  document.getElementById('is-step-presentation').classList.add('show')
-}
-
-
-if(document.body.classList.contains('run-steps')) {
-  window.onresize = () => {
-    Tutorial.updatePosition();
-  };
-}
-
-document.getElementById("init").addEventListener("click", () => {
-  document.getElementById('is-step-presentation').classList.remove('show')
-  if(!Tutorial.checkTutorial()) {
-    Tutorial.initTutorial();
-  }
-});
-
-
-document.getElementById("omit").addEventListener("click", () => {
-  Tutorial.omitTutorial();
-})
 

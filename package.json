@@ -1,0 +1,26 @@
+{
+  "name": "tutorialjs",
+  "version": "1.0.0",
+  "description": "Simple Tutorial Tour step by step on your website ",
+  "main": "tutorial.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "build:watch": "babel src -d dist --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henryraygan/tutorialjs.git"
+  },
+  "author": "Henry Ramirez - @henryraygan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henryraygan/tutorialjs/issues"
+  },
+  "homepage": "https://github.com/henryraygan/tutorialjs#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3"
+  }
+}
