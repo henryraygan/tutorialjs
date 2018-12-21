@@ -1,8 +1,6 @@
 body {
-    display: grid;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     font-family: Helvetica, sans-serif;
     background-color: #045de9;
@@ -10,8 +8,8 @@ body {
 }
 
 .card {
-    width: 80%;
-    margin: 0 auto;
+    width: 50%;
+    margin: 2rem auto 100vh auto;
     padding: 1rem;
     border: 2px solid #ffffff;
     background: #FFF;
@@ -80,59 +78,10 @@ body {
 
 
 
-.is-step-presentation {
-    position: absolute;
-    z-index: 2000;
+footer {
+    margin-top: auto;
     width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, .77);
-    display: none;
-}
-
-.is-step-presentation.show {
-    display: flex;
-}
-
-
-.is-step-presentation .presentation {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    background: #FFF;
+    padding: 1rem;
     text-align: center;
-    flex-direction: column;
-    width: 40%;
-    background-color: #1a73e8;
-    border-radius: 4px;
-    color: #FFF;
-    padding: 2rem;
-    line-height: 1.6;
-}
-
-
-.is-step-presentation .presentation .content {
-    padding: 1em;
-}
-
-.is-step-presentation .presentation .footer {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-}
-
-.is-step-presentation .presentation .footer button {
-    background-color: transparent;
-    border: 0;
-    color: #FFF;
-    text-decoration: underline;
-    margin-top: 2rem;
-}
-
-.is-step-presentation .presentation .footer button:focus {
-    outline: 0;
 }

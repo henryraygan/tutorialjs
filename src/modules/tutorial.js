@@ -39,17 +39,31 @@ export const Tutorial = (d => {
         width: obj.width,
         height: obj.height
       };
-    console.log(obj);
     return layer;
   };
 
   const _getPositionTooltip = el => {
-    const _el = el.getBoundingClientRect(),
-      _position = {
-        x: _el.left,
-        y: _el.top + _el.height + 10
-      };
+    const e = document.body,
+      i = document.documentElement,
+      n = window.pageYOffset || i.scrollTop || e.scrollTop,
+      o = window.pageXOffset || i.scrollLeft || e.scrollLeft,
+      s = el.getBoundingClientRect();
+    const _position = {
+      top: Math.abs((s.x != 0) ? s.top + n + s.height : s.top + n - (s.height * 3)),
+      width: Math.abs(s.width),
+      height: Math.abs(s.height),
+      left: Math.abs(s.left + o)
+    }
+    console.log(_position)
+    console.log(s)
     return _position;
+
+    // const _el = el.getBoundingClientRect(),
+    //   _position = {
+    //     x: _el.left,
+    //     y: _el.top + _el.height + 10
+    //   };
+    // return _position;
   };
 
   const _setCurrentStep = currentStep => {
@@ -59,10 +73,10 @@ export const Tutorial = (d => {
   const _setPositionLayer = el => {
     const pos = _getActiveElement(el);
     const layer = d.getElementsByClassName("is-step-layer");
-    layer[0].style.top = `${pos.y}px`;
-    layer[0].style.left = `${pos.x}px`;
-    layer[0].style.width = `${pos.width}px`;
-    layer[0].style.height = `${pos.height}px`;
+    layer[0].style.top = `${ Math.abs(pos.y)}px`;
+    layer[0].style.left = `${ Math.abs(pos.x)}px`;
+    layer[0].style.width = `${ Math.abs(pos.width)}px`;
+    layer[0].style.height = `${ Math.abs(pos.height)}px`;
   };
 
   const _resetLayer = () => {
@@ -73,15 +87,22 @@ export const Tutorial = (d => {
     layer[0].style.height = "0";
   };
 
+  const _scrollIn = (id, d, del) => {
+    let TIMER_SCROLL;
+    function scroll(id, d, del){
+        // Scroll the element.
+        id.scrollLeft += d;
+        // Perform a delay before recursing this function again.
+        TIMER_SCROLL = setTimeout("scroll('"+id+"',"+d+", "+del+");", del);
+    }
+  }
+
   const _setPositionTooltip = el => {
     const pos = _getPositionTooltip(el);
-    const tooltip = d.getElementsByClassName("is-step-tooltip");
-    console.log(el.offsetLeft);
-    console.log(el.offsetTop);
-    console.log(pos.x, pos.y);
-    console.log(pos.left, pos.right);
-    tooltip[0].style.top = `${pos.y}px`;
-    tooltip[0].style.left = `${pos.x}px`;
+    const tooltip = d.getElementsByClassName("is-step-tooltip")[0];
+    tooltip.style.top = `${pos.top}px`;
+    tooltip.style.left = `${pos.left}px`;
+    tooltip.style.marginTop = "20px";
   };
 
   const _setMessageTooltip = currentStep => {
@@ -145,7 +166,6 @@ export const Tutorial = (d => {
     _removeAllClass();
     currentStep++;
     if (currentStep > stepLength) {
-      console.log(currentStep, stepLength, "hola");
       _stop();
     } else {
       _showPrevButton(true);
@@ -169,7 +189,7 @@ export const Tutorial = (d => {
     _setPositionLayer(el);
   };
 
-  const createTutorial = () => {
+  const create = () => {
     console.log("tutorial is init");
 
     const parent = d.body;
@@ -219,7 +239,7 @@ export const Tutorial = (d => {
     parent.appendChild(tooltip);
   };
 
-  const initTutorial = () => {
+  const init = () => {
     currentStep = 1;
     stepLength = _getStepLength();
     _start();
@@ -245,8 +265,8 @@ export const Tutorial = (d => {
 
 
   return {
-    initTutorial,
-    createTutorial,
+    init,
+    create,
     updatePosition,
     changeStateTutorial,
     checkTutorial,
