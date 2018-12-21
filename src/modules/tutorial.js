@@ -52,7 +52,7 @@ export const Tutorial = (d => {
     return _position;
   };
 
-  _setCurrentStep = currentStep => {
+  const _setCurrentStep = currentStep => {
     document.documentElement.style.setProperty("--step", `'${currentStep}'`);
   };
 
@@ -106,21 +106,21 @@ export const Tutorial = (d => {
     });
   };
 
-  _getElementStep = currentStep => d.getElementById(`step-${currentStep}`);
+  const _getElementStep = currentStep => d.getElementById(`step-${currentStep}`);
 
-  _getMessageElement = currentStep =>
+  const _getMessageElement = currentStep =>
     d.getElementById(`step-${currentStep}`).getAttribute("data-message");
 
-  _getTitleElement = currentStep =>
+  const _getTitleElement = currentStep =>
     d.getElementById(`step-${currentStep}`).getAttribute("data-title");
 
-  _addClass = currentStep => {
+  const _addClass = currentStep => {
     document
       .getElementById(`step-${currentStep}`)
       .classList.add("is-step-active");
   };
 
-  _showPrevButton = isActive => {
+  const _showPrevButton = isActive => {
     if (!isActive) {
       d.getElementById("prev").style.display = "none";
     } else {
@@ -128,7 +128,7 @@ export const Tutorial = (d => {
     }
   };
 
-  _createTooltip = currentStep => {
+  const _createTooltip = currentStep => {
     const el = _getElementStep(currentStep);
     _setMessageTooltip(currentStep);
     _setPositionTooltip(el);
@@ -141,7 +141,7 @@ export const Tutorial = (d => {
   let stepLength = 0;
   let isShowPrev = false;
 
-  _nextStep = () => {
+  const _nextStep = () => {
     _removeAllClass();
     currentStep++;
     if (currentStep > stepLength) {
@@ -153,7 +153,7 @@ export const Tutorial = (d => {
     }
   };
 
-  _prevStep = () => {
+  const _prevStep = () => {
     _removeAllClass();
     console.log(currentStep - 1);
     if (currentStep - 1 > 0) {
@@ -163,7 +163,7 @@ export const Tutorial = (d => {
     }
   };
 
-  updatePosition = () => {
+  const updatePosition = () => {
     const el = _getElementStep(currentStep);
     _setPositionTooltip(el);
     _setPositionLayer(el);

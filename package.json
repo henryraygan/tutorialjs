@@ -4,8 +4,9 @@
   "description": "Simple Tutorial Tour step by step on your website ",
   "main": "tutorial.js",
   "scripts": {
-    "build": "babel src -d dist",
-    "build:watch": "babel src -d dist --watch",
+    "watch": "webpack --watch",
+    "build": "webpack",
+    "build-babel": "babel src -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,12 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3"
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.4",
+    "browser-sync": "^2.26.3",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.28.1",
+    "webpack-cli": "^3.1.2"
   }
 }
