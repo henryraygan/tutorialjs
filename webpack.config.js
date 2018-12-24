@@ -1,37 +1,21 @@
 const path = require("path");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "bundle.js",
-    path: path.join(__dirname, "dist/js")
+    path: path.join(__dirname, "dist")
   },
-  plugins: [
-    new BrowserSyncPlugin(
-      {
-        host: "localhost",
-        port: 3000,
-        server: {
-          baseDir: ["dist/"]
-        }
-      },
-      {
-        injectCss: true
-      }
-    )
-  ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new UglifyJsPlugin({
-        include: /\.min\.js$/
-      })
-    ]
+  devServer: {
+    port: 3000
   },
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -39,5 +23,10 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
+    })
+  ],
   mode: "development"
 };

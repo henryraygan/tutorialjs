@@ -1,4 +1,7 @@
-import { Tutorial } from "./modules/tutorial";
+import { Tutorial } from "./modules/Tutorial";
+
+require('./css/tutorial.css')
+require('./css/index.css')
 
 Tutorial.create();
 

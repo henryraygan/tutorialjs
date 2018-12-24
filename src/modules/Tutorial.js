@@ -150,6 +150,7 @@ export const Tutorial = (d => {
   };
 
   const _createTooltip = currentStep => {
+    window.scroll(0,0);
     const el = _getElementStep(currentStep);
     _setMessageTooltip(currentStep);
     _setPositionTooltip(el);
@@ -166,10 +167,13 @@ export const Tutorial = (d => {
     _removeAllClass();
     currentStep++;
     if (currentStep > stepLength) {
+      window.scroll(0,0);
       _stop();
     } else {
       _showPrevButton(true);
       _createTooltip(currentStep);
+      const moveTo = document.getElementById('step-'+currentStep).getBoundingClientRect();
+      window.scroll(moveTo.x, moveTo.y);
     }
   };
 
@@ -273,5 +277,4 @@ export const Tutorial = (d => {
     omitTutorial
   };
 })(document);
-
 
